@@ -14,11 +14,11 @@ if __name__ == '__main__':
 
     # Required Arguments
     required = parser.add_argument_group('required named arguments')
-    required.add_argument("-d", "--dataset", type=str, required=True, help='Name of the Dataset')
     required.add_argument("-s", "--source", type=str, required=True, help='Name of Source Modality')
 
     # Optional Arguments
     optional = parser._action_groups.pop()
+    optional.add_argument("-d", "--dataset", type=str, default='EUROSAT-MS-SAR', help='Name of the Dataset')
     optional.add_argument('-n_gpu', "--gpu_number", type=str, default=0,
                           help='Number of the GPU on which to run the algorithm.')
     optional.add_argument("-ns", "--nsamples", type=int, nargs="+", default=[5, 10, 25, 50],
@@ -33,8 +33,6 @@ if __name__ == '__main__':
     # Arguments Parsing
     arguments = parser.parse_args()
 
-    methods = arguments.method
-    backbone = arguments.backbone
     gpu = arguments.gpu_number
     nsamples_list = arguments.nsamples
     nsplits_list = arguments.nsplits
@@ -63,10 +61,7 @@ if __name__ == '__main__':
                 f"Processing {arguments.dataset}. Source = {arguments.source}. nsplit = {nsplit}, nsamples = {nsamples}")
             sys.stdout.flush()
 
-            #f1_val = train_fn[m](ds_dir, out_dir, nsamples, nsplit, ds_idx, source_idx, gpu, backbone)
-            f1_val, f1_nw = ashedd.train_fn(ds_dir, out_dir, nsamples, nsplit, ds_idx, source_idx, gpu)
-
-            #table.append([ds_idx, source_idx, nsplit, nsamples, f1_val])  # Save results
+            f1_val, f1_nw = ashedd.train_and_eval(ds_dir, out_dir, nsamples, nsplit, ds_idx, source_idx, gpu)
             table.append([ds_idx, source_idx, nsplit, nsamples, f1_val, f1_nw])  # Save results
 
             io.savemat(

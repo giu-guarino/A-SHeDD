@@ -1,7 +1,7 @@
 # Adversarial Feature Disentanglement for Semi-Supervised Heterogeneous Domain Adaptation
 
 ## Framework overview 
-![DASH-DA architecture](Arch.png)
+![A-SHeDD architecture](Arch.png)
 
 **Considered setting:** Semi-supervised domain adaptation methods aim to generalize from a labeled source domain to a scarcely labeled target domain, despite potential distribution shifts. This challenge becomes even more complex when the source and target data differ in modality representation, such as when acquired using sensors with varying characteristics. In remote sensing, for example, data may differ in acquisition modes (e.g., optical vs. radar), spectral properties (e.g., RGB vs. multispectral), or spatial resolution. This scenario, known as Semi-Supervised Heterogeneous Domain Adaptation (SSHDA), introduces additional challenges due to the heightened distribution shift caused by modality heterogeneity.
 
@@ -13,12 +13,12 @@
 Train and test of the proposed framework are performed in file `main.py`.
 
 ### Data
-To prepare the data for use with our framework, first download the original datasets and normalize them according to your application requirements. Once preprocessed, place the dataset (including both modality files and the label file) in a folder named ./Datasets/dataset_name.
+To prepare the data for use with our framework, first download the original datasets and normalize them according to your application requirements. Once preprocessed, place the dataset (including both modality files and the label file) in a folder named ./Datasets/EUROSAT-MS-SAR.
 
-Finally, run `preproc.py` to generate the necessary data files.
+Finally, run `preproc.py` to generate the necessary training data files.
 
 ### Input arguments 
-Scripts take the following input arguments in order (they are used for data loading configuration and may be modified to meet your own dataset conventions):
+Scripts take the following input arguments (they are used for data loading configuration and may be modified to meet your own dataset conventions):
 1) **Dataset Name**: Default is *EUROSAT-MS-SAR*.  
 2) **Source Data Prefix**: Specifies the modality used as the source domain. Options include *MS* or *SAR*. The remaining modality is automatically assigned as the target domain.  
 3) **GPU Number**: Specify the GPU to use.  
@@ -31,3 +31,4 @@ Example of running istruction:
 
     python main.py -d EUROSAT-MS-SAR -s MS -n_gpu 0 -ns 5 10 50 -np 1 2 5
 
+We maintained a dictionary structure in 'param.py' to enable users to easily add additional multimodal datasets for classification tasks.
