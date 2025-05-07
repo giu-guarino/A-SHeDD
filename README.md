@@ -31,4 +31,4 @@ Example of running istruction:
 
     python main.py -d EUROSAT-MS-SAR -s MS -n_gpu 0 -ns 5 10 50 -np 1 2 5
 
-We maintained a dictionary structure in 'param.py' to enable users to easily add additional multimodal datasets for classification tasks.
+We maintained a dictionary structure in `param.py` to enable users to easily add additional multimodal datasets for classification tasks.
